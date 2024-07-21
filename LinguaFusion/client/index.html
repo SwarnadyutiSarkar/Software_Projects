@@ -1,0 +1,63 @@
+// index.html
+<!DOCTYPE html>
+<html>
+<head>
+  <title>LinguaFusion</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <h1>LinguaFusion</h1>
+  <form id="input-form">
+    <label for="input-text">Enter text:</label>
+    <textarea id="input-text" name="input-text"></textarea>
+    <button id="submit-btn">Analyze</button>
+  </form>
+  <div id="output-container"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
+// styles.css
+body {
+  font-family: Arial, sans-serif;
+}
+
+#input-form {
+  margin: 20px;
+}
+
+#output-container {
+  margin: 20px;
+  padding: 20px;
+  border: 1px solid #ccc;
+}
+
+// script.js
+const inputForm = document.getElementById('input-form');
+const inputText = document.getElementById('input-text');
+const submitBtn = document.getElementById('submit-btn');
+const outputContainer = document.getElementById('output-container');
+
+submitBtn.addEventListener('click', async (e) => {
+  e.preventDefault();
+  const text = inputText.value.trim();
+  if (text) {
+    try {
+      const response = await fetch('/analyze', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ text }),
+      });
+      const result = await response.json();
+      outputContainer.innerHTML = `
+        <h2>Analysis Result</h2>
+        <p>Sentiment: ${result.sentiment}</p>
+        <p>Entities: ${result.entities.join(', ')}</p>
+      `;
+    } catch (error) {
+      console.error(error);
+      outputContainer.innerHTML = `<p>Error: ${error.message}</p>`;
+    }
+  }
+});
