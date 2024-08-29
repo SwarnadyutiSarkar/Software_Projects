@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Recommendation</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Movie Recommendation System</h1>
+    <form id="preference-form">
+        <label for="genre">Select a Genre:</label>
+        <select id="genre">
+            <option value="action">Action</option>
+            <option value="comedy">Comedy</option>
+            <option value="drama">Drama</option>
+            <option value="horror">Horror</option>
+            <option value="romance">Romance</option>
+        </select>
+        <label for="rating">Minimum Rating:</label>
+        <input type="number" id="rating" min="0" max="10" step="0.1">
+        <button type="button" onclick="getMovieRecommendation()">Get Recommendation</button>
+    </form>
+    <div id="movie-result">
+        <h2>Recommended Movie</h2>
+        <p id="movie-title"></p>
+        <p id="movie-overview"></p>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
